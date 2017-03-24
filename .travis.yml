@@ -7,18 +7,18 @@ node_js:
 branches:
   only:
     - release
-    - dev
+    - develop
 
 before_script:
   - npm install -g firebase-tools
   - npm install -g @angular/cli
 
 script:
-  - if [ "$TRAVIS_BRANCH" = "dev" ]; then .ng build; fi
+  - if [ "$TRAVIS_BRANCH" = "develop" ]; then .ng build; fi
   - if [ "$TRAVIS_BRANCH" = "release" ]; then ng build --prod; fi
 
 after_success:
-  - if [ "$TRAVIS_BRANCH" = "dev" ]; then .firebase use dev --token $FIREBASE_TOKEN; fi
+  - if [ "$TRAVIS_BRANCH" = "develop" ]; then .firebase use dev --token $FIREBASE_TOKEN; fi
   - if [ "$TRAVIS_BRANCH" = "release" ]; then .firebase use prod --token $FIREBASE_TOKEN; fi
   - firebase deploy --token $FIREBASE_TOKEN
 

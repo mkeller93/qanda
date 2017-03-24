@@ -16,5 +16,7 @@ export class AppComponent {
     } else {
       this.title = "hello DEV";
     }
+
+    this.title += " - UPDATE";
   }
 }
