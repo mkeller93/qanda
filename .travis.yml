@@ -1,0 +1,28 @@
+#.travis.yml
+
+language: node_js
+node_js:
+  - "6.10"
+
+branches:
+  only:
+    - release
+    - dev
+
+before_script:
+  - npm install -g firebase-tools
+  - npm install -g @angular/cli
+
+script:
+  - if [ "$TRAVIS_BRANCH" = "dev" ]; then .ng build; fi
+  - if [ "$TRAVIS_BRANCH" = "release" ]; then ng build --prod; fi
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" = "dev" ]; then .firebase use dev --token $FIREBASE_TOKEN; fi
+  - if [ "$TRAVIS_BRANCH" = "release" ]; then .firebase use prod --token $FIREBASE_TOKEN; fi
+  - firebase deploy --token $FIREBASE_TOKEN
+
+notifications:
+  email:
+    on_failure: change
+    on_success: change

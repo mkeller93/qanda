@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "qanda-dev-cde80",
+    "prod": "qanda-e85a6",
+    "dev": "qanda-dev-cde80"
+  }
+}
